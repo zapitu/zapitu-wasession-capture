@@ -1,0 +1,8 @@
+node_modules
+/dist
+*.crx
+*.zip
+key.pem
+.env
+.DS_Store
+public/icons/logo.jpg

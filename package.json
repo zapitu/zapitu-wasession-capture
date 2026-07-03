@@ -1,0 +1,37 @@
+{
+  "name": "zapitu-wasession-capture",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Browser extension that captures an authenticated WhatsApp Web session and delivers it to a companion app for passkey-locked accounts (MV3).",
+  "license": "Unlicense",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "package": "node scripts/package.js",
+    "package:local": "APP_HOSTS='http://localhost/*,http://127.0.0.1/*,https://localhost/*,https://127.0.0.1/*' node scripts/package.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.28",
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.20.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "adm-zip": "^0.5.16",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  }
+}
