@@ -1,8 +1,26 @@
-node_modules
-/dist
+# Dependencies
+node_modules/
+
+# Build output
+/dist/
+
+# Generated extension packages
 *.crx
 *.zip
-key.pem
+
+# Secrets / local env files
 .env
+key.pem
+
+# OS files
 .DS_Store
+
+# Source icon provided locally for whitelabel builds
 public/icons/logo.jpg
+
+# Logs
+*.log
+
+# Editor directories
+.vscode/
+.idea/
