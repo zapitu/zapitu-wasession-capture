@@ -5,6 +5,9 @@
   "type": "module",
   "description": "Browser extension that captures an authenticated WhatsApp Web session and delivers it to a companion app for passkey-locked accounts (MV3).",
   "license": "Unlicense",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
