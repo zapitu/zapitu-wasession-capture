@@ -51,13 +51,18 @@ select the `dist/` folder.
 
 1. The companion app calls `window.postMessage({ target: 'wasession-capture', type:
    'START_PASSKEY_IMPORT', url: '<capture-endpoint>' })`.
-2. The extension opens WhatsApp Web in a background tab and forces the passkey
-   pairing flow.
-3. Once the user completes WebAuthn in the browser, the extension extracts the
-   session credentials from WhatsApp Web's local storage and IndexedDB.
-4. The dump is POSTed to the provided URL and the local WhatsApp Web storage is
+2. The extension opens WhatsApp Web in a background tab and checks for an
+   existing logged-in session.
+3. If an existing session is found, the extension sends `EXISTING_SESSION` with
+   the account number. The companion app can then send `CAPTURE_EXISTING` to
+   dump the existing session, or `CLEAR_AND_CONTINUE` to wipe the session and
+   start a fresh passkey pairing.
+4. Once the session is authenticated (either existing or after WebAuthn/Passkey
+   pairing), the extension extracts the credentials from WhatsApp Web's local
+   storage and IndexedDB.
+5. The dump is POSTed to the provided URL and the local WhatsApp Web storage is
    wiped.
-5. The companion app receives `IMPORT_SENT` or `IMPORT_ERROR` via postMessage.
+6. The companion app receives `IMPORT_SENT` or `IMPORT_ERROR` via postMessage.
 
 ## Integration
 

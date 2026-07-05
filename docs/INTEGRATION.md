@@ -45,21 +45,31 @@ window.postMessage(
 );
 ```
 
-The extension will open WhatsApp Web, force the passkey flow, capture the
-session and POST it to `captureUrl`.
+The extension will open WhatsApp Web, capture the session and POST it to
+`captureUrl`. If WhatsApp Web already has a logged-in session, the extension
+sends `EXISTING_SESSION` and waits for the companion app to choose between
+capturing the existing session (`CAPTURE_EXISTING`) or clearing it and starting
+a fresh passkey pairing (`CLEAR_AND_CONTINUE`).
 
 ## Events sent by the extension
 
 Listen on `window` for messages with `event.data.source === 'wasession-capture'`:
 
-| Type                | Description                                           |
-| ------------------- | ----------------------------------------------------- |
-| `CONNECTOR_READY`   | The extension bridge is loaded.                       |
-| `EXISTING_SESSION`  | WhatsApp Web already has a logged-in session.         |
-| `IMPORT_SENT`       | The session dump was sent to the capture URL.         |
-| `IMPORT_ERROR`      | Something failed. `event.data.reason` has a code.     |
+| Type                | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `CONNECTOR_READY`   | The extension bridge is loaded.                                                 |
+| `EXISTING_SESSION`  | WhatsApp Web already has a logged-in session. `event.data.number` has the number. |
+| `IMPORT_SENT`       | The session dump was sent to the capture URL.                                   |
+| `IMPORT_ERROR`      | Something failed. `event.data.reason` has a code.                               |
 
-If `EXISTING_SESSION` is received, show a prompt to the user and then send:
+If `EXISTING_SESSION` is received, show a prompt to the user. To capture the
+existing session without clearing it, send:
+
+```js
+window.postMessage({ target: SOURCE, type: 'CAPTURE_EXISTING' }, '*');
+```
+
+To wipe the existing session and start a fresh passkey pairing instead, send:
 
 ```js
 window.postMessage({ target: SOURCE, type: 'CLEAR_AND_CONTINUE' }, '*');
