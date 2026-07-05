@@ -16,7 +16,7 @@ export default defineManifest({
   manifest_version: 3,
   name: title,
   short_name: shortName,
-  version: '0.1.0',
+  version: process.env.npm_package_version || '0.1.0',
   description: `Captures an authenticated WhatsApp Web session and delivers it to ${title} for passkey-locked accounts.`,
   icons,
   action: { default_popup: 'index.html', default_icon: icons },
