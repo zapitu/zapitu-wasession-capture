@@ -10,8 +10,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 
 function exec(cmd, args, options) {
+  const isWin = process.platform === 'win32';
+  const resolvedCmd = isWin && cmd === 'npm' ? 'npm.cmd' : cmd;
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, { stdio: 'inherit', ...options });
+    const child = spawn(resolvedCmd, args, {
+      stdio: 'inherit',
+      shell: isWin,
+      ...options
+    });
     child.on('close', (code) => {
       if (code === 0) resolve();
       else reject(new Error(`Command failed with exit code ${code}`));
